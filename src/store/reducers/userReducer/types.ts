@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export interface UserState{
     user: any,
     message: null | string,
@@ -5,7 +7,8 @@ export interface UserState{
     error: null | string,
     isAuth: boolean,
     selectedUser: any,
-    allUsers: []
+    allUsers: [],
+    adduser:any
 }
 
 export enum UserActionTypes {
@@ -15,10 +18,18 @@ export enum UserActionTypes {
     LOGIN_USER_ERROR = "LOGIN_USER_ERROR",
     SERVER_ERROR = "SERVER_ERROR",
     LOGOUT_USER = "LOGOUT_USER",
+    GET_ALL_SUCCESS = "GET_ALL_SUCCESS",
+    ADD_USER_SUCCES = "ADD_USER_SUCCES",
+    ADD_USER_ERROR = "ADD_USER_ERROR"
 }
 
 interface StartRequestAction {
     type: UserActionTypes.START_REQUEST
+}
+
+interface GetAllSuccessAction{
+    type: UserActionTypes.GET_ALL_SUCCESS,
+    payload: any
 }
 
 interface LogoutUserAction {
@@ -44,6 +55,14 @@ interface ServerErrorAction{
     type: UserActionTypes.SERVER_ERROR,
     payload: any
 }
+interface AddUserSucces{
+    type:UserActionTypes.ADD_USER_SUCCES,
+    payload:any
+}
+interface AddUserError{
+    type:UserActionTypes.ADD_USER_ERROR,
+    payload:any
+}
 
-export type UserActions = | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
+export type UserActions = AddUserError |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
 

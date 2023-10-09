@@ -13,11 +13,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Formik, Field } from "formik";
-import { LoginSchema } from "../validation";
+
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import Loader from "../../../components/loader";
-import SignUp from "../signup";
+
 
 const initialValues = { email: "", password: "", rememberMe: false };
 
@@ -42,13 +42,18 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignIn() {
-  const { LoginUser } = useActions();
-  const { isAuth, loading } = useTypedSelector((store) => store.UserReducer);
 
-  if (isAuth) {
-    return <Navigate to="/dashboard" />;
-  }
+
+
+
+
+
+
+export default function AddUsers() {
+  const { AddUser } = useActions();
+  const { loading } = useTypedSelector((store) => store.UserReducer);
+
+
 
   if (loading) {
     return <Loader />;
@@ -58,10 +63,14 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
+      FirstName:data.get("firstName"),
+      LastName:data.get("lastName"),
       email: data.get("email"),
+      role:data.get("role"),
       password: data.get("password"),
+      confirmPassword: data.get("confirmPassword"),
     };
-    LoginUser(user);
+    AddUser(user);
     /// data from server
   };
 
@@ -69,6 +78,7 @@ export default function SignIn() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
         <Box
           sx={{
             marginTop: 8,
@@ -77,16 +87,14 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          
           <Typography component="h1" variant="h5">
-            Sign in
+            Create
           </Typography>
           <Formik
             initialValues={initialValues}
             onSubmit={() => {}}
-            validationSchema={LoginSchema}
+            
           >
             {({ errors, touched, isSubmitting, isValid, dirty }) => (
               <Box
@@ -98,13 +106,33 @@ export default function SignIn() {
                 <Field
                   as={TextField}
                   margin="normal"
+                  required
+                  fullWidth
+                  name="FirstName"
+                  label="First Name"
+                  type="text"
+                  id="firstName"
+                />
+                <Field
+                  as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="LastName"
+                  label="Last Name"
+                  type="text"
+                  id="lastName"
+                />
+                <Field
+                  as={TextField}
+                  margin="normal"
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
                 />
-                {errors.email && touched.email ? (
+                 {errors.email && touched.email ? (
                   <div style={{ color: "red" }}>{errors.email}</div>
                 ) : null}
                 <Field
@@ -118,33 +146,45 @@ export default function SignIn() {
                   id="password"
                   autoComplete="current-password"
                 />
-                {errors.password && touched.password ? (
+                 {errors.password && touched.password ? (
                   <div style={{ color: "red" }}>{errors.password}</div>
                 ) : null}
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
+                <Field
+                  as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
+                  autoComplete="current-password"
                 />
+                <Field
+                  as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="role"
+                  label="Role"
+                  type="text"
+                  id="role"
+                />
+                
                 <Button
-                  disabled={!(isValid && dirty)}
+                  
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Add User
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link to="/">Forgot password?</Link>
-                  </Grid>
-                  <Grid item>
-                    <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
-                  </Grid>
-                </Grid>
+               
+                
               </Box>
-            )}
-          </Formik>
+               )}
+               </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

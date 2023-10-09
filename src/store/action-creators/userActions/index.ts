@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 // Import services
-import { login, logout, removeTokens, setAccessToken, setRefreshToken } from "../../../services/api-user-service";
+import { adduser, getAll, login, logout, removeTokens, setAccessToken, setRefreshToken } from "../../../services/api-user-service";
 
 export const LoginUser = (user : any) => {
     return async(dispatch: Dispatch<UserActions>) => {
@@ -29,6 +29,54 @@ export const LoginUser = (user : any) => {
          }
     }
 }
+
+
+export const AddUser=(user : any)=>{
+   return async(dispatch: Dispatch<UserActions>) => {
+      try{
+         dispatch({type: UserActionTypes.START_REQUEST});
+         const data = await adduser(user)
+         const{response}=data;
+         if(response.success){
+            dispatch({type:UserActionTypes.ADD_USER_SUCCES,payload:{message:response.message,adduser:response.payload}})
+            toast.success(response.message)
+         }
+         else{
+
+            dispatch({type:UserActionTypes.ADD_USER_ERROR,payload:response.message})
+               toast.error (response.message)
+         }
+      }
+      catch(e){
+         dispatch({type: UserActionTypes.SERVER_ERROR, payload: "Unknown error!"})
+      }
+   }
+}
+
+
+export const GetAll = () => {
+   return async(dispatch: Dispatch<UserActions>) => {
+      try{
+         dispatch({type: UserActionTypes.START_REQUEST});
+         const data = await getAll()
+         const { response } = data;
+         console.log("response ", response)
+         if(response.success){
+            dispatch({type: UserActionTypes.GET_ALL_SUCCESS, payload: {message: response.message, allUsers: response.payload}})
+            toast.success(response.message)
+         }
+         else{
+            toast.error(response.message)
+            dispatch({type: UserActionTypes.SERVER_ERROR, payload: response.message})
+         }
+      }
+      catch(e){
+         dispatch({type: UserActionTypes.SERVER_ERROR, payload: "Unknown error!"})
+      }
+ }
+}
+
+
 
 export const LogOut = (id: string) => {
    return async (dispatch: Dispatch<UserActions>) => {

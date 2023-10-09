@@ -77,7 +77,9 @@ const requests = {
 
 const User = {
     login: (user: any) => requests.post(`/login`, user),
-    logout: (userId: string) => requests.get(`/logout?userId=` + userId)
+    logout: (userId: string) => requests.get(`/logout?userId=` + userId),
+    getAll: () => requests.get(`/GetAll`),
+    adduser:(user:any)=>requests.post(`/Create`,user)
 }
 
 export async function login(user: any){
@@ -92,6 +94,40 @@ export async function login(user: any){
     } )
     return data
 }
+
+export async function getAll(){
+  const data = await User.getAll()
+  .then((response) => {
+      return {
+          response
+      }
+  })
+  .catch((error) => {
+      return error.response
+  } )
+  return data
+}
+
+export async function adduser(user: any){
+  const data = await User.adduser(user)
+  .then((response) =>{
+    return{
+      response
+    }
+  })
+  .catch((error) => {
+    return error.response
+} )
+return data
+}
+
+
+
+
+
+
+
+
 
 export async function logout(userId: string){
     const data = await User.logout(userId)

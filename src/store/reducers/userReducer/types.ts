@@ -8,7 +8,7 @@ export interface UserState{
     isAuth: boolean,
     selectedUser: any,
     allUsers: [],
-    adduser:any
+    
 }
 
 export enum UserActionTypes {
@@ -20,7 +20,7 @@ export enum UserActionTypes {
     LOGOUT_USER = "LOGOUT_USER",
     GET_ALL_SUCCESS = "GET_ALL_SUCCESS",
     ADD_USER_SUCCES = "ADD_USER_SUCCES",
-    ADD_USER_ERROR = "ADD_USER_ERROR"
+    
 }
 
 interface StartRequestAction {
@@ -57,12 +57,9 @@ interface ServerErrorAction{
 }
 interface AddUserSucces{
     type:UserActionTypes.ADD_USER_SUCCES,
-    payload:any
-}
-interface AddUserError{
-    type:UserActionTypes.ADD_USER_ERROR,
-    payload:any
+    payload:string;
 }
 
-export type UserActions = AddUserError |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
+
+export type UserActions =  |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
 

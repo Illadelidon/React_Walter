@@ -25,16 +25,16 @@ function App() {
           )}
           {user.role === "User" && (
             <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<DefaultPage />} />
               <Route path="users" element={<AllUsers />} />
-              <Route path="addusers" element={<AddUsers />} />
             </Route>
           )}
         </>
       )}
 
       <Route path="/" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard" element={< SignIn/>} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

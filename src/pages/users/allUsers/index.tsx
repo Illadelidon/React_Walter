@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 
 
 
+
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: "right",
@@ -21,6 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const Users: React.FC<any> = () => {
 
   const { GetAll } = useActions();
+  const { DeleteUser } = useActions();
   const { loading, allUsers } = useTypedSelector((state) => state.UserReducer);
   let rows: any[] = allUsers;
   const [isRedirect, setIsRedirect] = useState(false);
@@ -54,10 +56,13 @@ const Users: React.FC<any> = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-          const userData = thisRow;
-          setIsRedirect(true);
+          const userId = thisRow["id"];
+          DeleteUser(userId);
+          //setIsRedirect(true);
+          window.location.href='/dashboard'   
+          
         };
-        return <Button onClick={onClick}>Edit</Button>;
+        return <Button onClick={onClick}>Delete</Button>;
       },
     },
   ];
@@ -74,7 +79,7 @@ const Users: React.FC<any> = () => {
           <Button variant="contained">
             <Link
               style={{ textDecoration: "none", color: "#fff" }}
-              to="addusers"
+              to="/dashboard/addusers"
             >
               Add new user
             </Link>

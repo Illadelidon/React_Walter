@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 const instance = axios.create({
     baseURL: "https://localhost:7110/api/User",
     headers: {
@@ -79,7 +80,8 @@ const User = {
     login: (user: any) => requests.post(`/login`, user),
     logout: (userId: string) => requests.get(`/logout?userId=` + userId),
     getAll: () => requests.get(`/GetAll`),
-    adduser:(user:any)=>requests.post(`/Create`,user)
+    adduser:(user:any)=>requests.post(`/Create`,user),
+    deleteuser:(userId:string)=>requests.post(`/DeleteUser`,userId),
 }
 
 export async function login(user: any){
@@ -123,7 +125,18 @@ return data
 
 
 
-
+export async function deleteuser(userId:any) {
+  const data = await User.deleteuser(userId)
+  .then((response)=>{
+    return{
+      response
+    }
+  })
+  .catch((error)=>{
+    return error.response
+  })
+  return data
+}
 
 
 

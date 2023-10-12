@@ -33,6 +33,8 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
       return { ...state, loading: false, allUsers: action.payload.allUsers, message: action.payload.message}  
     case UserActionTypes.ADD_USER_SUCCES:
       return {...state,loading:false,message: action.payload};
+    case UserActionTypes.DELETE_USER_SUCCESS:
+      return {...state,loading:false,message:action.payload};
     case UserActionTypes.LOGOUT_USER:
       return {
         user: {},

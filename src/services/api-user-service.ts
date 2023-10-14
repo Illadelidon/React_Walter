@@ -82,6 +82,7 @@ const User = {
     getAll: () => requests.get(`/GetAll`),
     adduser:(user:any)=>requests.post(`/Create`,user),
     deleteuser:(userId:string)=>requests.post(`/DeleteUser`,userId),
+    updateuser:(userId:any)=>requests.post(`/UpdateUser`,userId),
 }
 
 export async function login(user: any){
@@ -138,7 +139,18 @@ export async function deleteuser(userId:any) {
   return data
 }
 
-
+export async function updateuser(userId:any) {
+  const data = await User.updateuser(userId)
+  .then((response)=>{
+    return{
+      response
+    }
+  })
+  .catch((error)=>{
+    return error.response
+  })
+  return data
+}
 
 
 

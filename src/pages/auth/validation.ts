@@ -72,3 +72,11 @@ export const ResetPasswordSchema = Yup.object().shape({
     surname: Yup.string().required("Surname is required").label("Surname"),
     phone: Yup.string().required("Phone is required").label("Phone"),
   });
+  export const UpdateUserSchema = Yup.object().shape({
+    email: Yup.string()
+    .email("Must be a valid email")
+    .max(255)
+    .required("Email is required"),
+  firstName: Yup.string().max(255).required("First name is required"),
+  lastName: Yup.string().max(255).required("Last name is required"),
+  });

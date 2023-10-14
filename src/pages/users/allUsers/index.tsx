@@ -9,6 +9,12 @@ import { Link, Navigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { Grid, TablePagination } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import { UpdateUser } from "../../../store/action-creators/userActions";
+
+
+
+
+
 
 
 
@@ -60,12 +66,47 @@ const Users: React.FC<any> = () => {
           DeleteUser(userId);
           //setIsRedirect(true);
           window.location.href='/dashboard'   
-          
         };
-        return <Button onClick={onClick}>Delete</Button>;
+        
+
+
+        
+
+
+
+        const onUpdateClick = (e: any) => {
+          e.stopPropagation(); // don't select this row after clicking
+          const api: GridApi = params.api;
+          const thisRow: Record<string, GridCellValue> = {};
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== "__check__" && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+          
+             const userId = thisRow["id"];
+             //setUserId(userId);
+             
+            
+            
+            
+          window.location.href = `/dashboard/updateusers`;
+          
+          //console.log("userId in file allUsers" + userId)
+            }
+        return(<> 
+                <Button onClick={onClick}>Delete</Button>
+                <Button onClick={onUpdateClick}>Update</Button>
+                
+              </>
+              
+              );
+              
       },
     },
   ];
+  
   if (loading) {
     return <Loader />;
   }
@@ -106,6 +147,6 @@ const Users: React.FC<any> = () => {
   );
 };
 
- 
+
 
 export default Users;

@@ -21,6 +21,7 @@ export enum UserActionTypes {
     GET_ALL_SUCCESS = "GET_ALL_SUCCESS",
     ADD_USER_SUCCES = "ADD_USER_SUCCES",
     DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS",
+    UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS"
     
 }
 
@@ -65,6 +66,11 @@ interface DeleteUserSuccess{
     payload:any;
 }
 
+interface UpdateUserSuccess{
+    type:UserActionTypes.UPDATE_USER_SUCCESS,
+    payload:any;
+}
 
-export type UserActions =  DeleteUserSuccess |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
+
+export type UserActions = UpdateUserSuccess | DeleteUserSuccess |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
 

@@ -35,6 +35,8 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
       return {...state,loading:false,message: action.payload};
     case UserActionTypes.DELETE_USER_SUCCESS:
       return {...state,loading:false,message:action.payload};
+    case UserActionTypes.UPDATE_USER_SUCCESS:
+      return {...state,loading:false,message:action.payload};
     case UserActionTypes.LOGOUT_USER:
       return {
         user: {},

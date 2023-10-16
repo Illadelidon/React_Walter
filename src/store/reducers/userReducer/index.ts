@@ -23,6 +23,11 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
         user: action.payload.decodedToken,
         message: action.payload.message,
       };
+    case UserActionTypes.SET_SELECTED_USER:
+      return{
+        ...state,selectedUser:action.payload.id
+      };
+      
     case UserActionTypes.FINISHED_REQUEST:
       return { ...state, loading: false };
     case UserActionTypes.LOGIN_USER_ERROR:
@@ -36,6 +41,8 @@ const UserReducer = (state = initialState, action: UserActions): UserState => {
     case UserActionTypes.DELETE_USER_SUCCESS:
       return {...state,loading:false,message:action.payload};
     case UserActionTypes.UPDATE_USER_SUCCESS:
+      return {...state,loading:false,message:action.payload};
+    case UserActionTypes.UPDATE_USER_PASSWORD:
       return {...state,loading:false,message:action.payload};
     case UserActionTypes.LOGOUT_USER:
       return {

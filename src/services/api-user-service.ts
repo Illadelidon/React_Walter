@@ -83,6 +83,7 @@ const User = {
     adduser:(user:any)=>requests.post(`/Create`,user),
     deleteuser:(userId:string)=>requests.post(`/DeleteUser`,userId),
     updateuser:(userId:any)=>requests.post(`/UpdateUser`,userId),
+    updatepassword:(user:any)=>requests.post(`/ChangePassword`,user)
 }
 
 export async function login(user: any){
@@ -139,8 +140,25 @@ export async function deleteuser(userId:any) {
   return data
 }
 
-export async function updateuser(userId:any) {
-  const data = await User.updateuser(userId)
+export async function updatepassword(user:any) {
+  const data = await User.updatepassword(user)
+  .then((response)=>{
+    return{
+      response
+    }
+  })
+  .catch((error)=>{
+    return error.response
+  })
+  return data
+}
+
+
+
+
+
+export async function updateuser(user:any) {
+  const data = await User.updateuser(user)
   .then((response)=>{
     return{
       response

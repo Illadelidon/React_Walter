@@ -166,7 +166,7 @@ export default function DashboardLayout() {
                 }}
               >
                 <MenuItem>
-                  <Link to="profile" style={{ textDecoration: "none" }}>
+                  <Link to="updatepassword" style={{ textDecoration: "none" }}>
                     Profile
                   </Link>
                 </MenuItem>

@@ -21,8 +21,9 @@ export enum UserActionTypes {
     GET_ALL_SUCCESS = "GET_ALL_SUCCESS",
     ADD_USER_SUCCES = "ADD_USER_SUCCES",
     DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS",
-    UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS"
-    
+    UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS",
+    UPDATE_USER_PASSWORD = "UPDATE_USER_PASSWORD",
+    SET_SELECTED_USER = "SET_SELECTED_USER"
 }
 
 interface StartRequestAction {
@@ -70,7 +71,15 @@ interface UpdateUserSuccess{
     type:UserActionTypes.UPDATE_USER_SUCCESS,
     payload:any;
 }
+interface UpdateUserPassword{
+    type:UserActionTypes.UPDATE_USER_PASSWORD,
+    payload:any;
+}
+interface SetSelectedUser{
+    type:UserActionTypes.SET_SELECTED_USER,
+    payload:any;
+}
 
 
-export type UserActions = UpdateUserSuccess | DeleteUserSuccess |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
+export type UserActions = SetSelectedUser|UpdateUserPassword|UpdateUserSuccess | DeleteUserSuccess |AddUserSucces| GetAllSuccessAction | LogoutUserAction |  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
 

@@ -21,20 +21,21 @@ import { Navigate } from "react-router-dom";
 
 
 
-const Register: React.FC = () => {
-  const [role, setRole] = useState("Users");
-  const { UpdateUser } = useActions();
-  const { message } = useTypedSelector((store) => store.UserReducer);
-  const {selectedUser}=useTypedSelector((store)=>store.UserReducer)
 
-  if (message === "User successfully created.") {
-    return <Navigate to="/dashboard/users" />;
-  }
+
+
+const UpdatePassword: React.FC = () => {
+  const [role, setRole] = useState("Users");
+  const { UpdatePassword } = useActions();
+  const { message } = useTypedSelector((store) => store.UserReducer);
+  const {user}=useTypedSelector((store)=>store.UserReducer)
+
+  
 
   const initialValues = {
-    email: "",
-    firstName: "",
-    lastName: "",
+    OldPassword: "",
+    NewPassword: "",
+    ConfirmPassword: "",
    
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,16 +43,17 @@ const Register: React.FC = () => {
 
     const data = new FormData(event.currentTarget);
    
-        console.log(selectedUser.Id)
-    const newUser = {
-      userId:selectedUser.Id,
-      FirstName: data.get("firstName"),
-      LastName: data.get("lastName"),
-      Email: data.get("email"),
-      Role: role,
+        
+    const newPassword = {
+      userId :user.Id,
+      OldPassword: data.get("oldpassword"),
+      NewPassword: data.get("newpassword"),
+      ConfirmPassword: data.get("confirmpassword"),
+     
     };
-    console.log(newUser)
-    //UpdateUser(newUser);
+    console.log(newPassword)
+    UpdatePassword(newPassword);
+    window.location.href='/dashboard'   
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -75,7 +77,7 @@ const Register: React.FC = () => {
             initialValues={initialValues}
             validationSchema={UpdateUserSchema}
           >
-            {({ errors, touched, isSubmitting, isValid, dirty }) => (
+            
               <Box
                 sx={{ my: 3 }}
                 onSubmit={handleSubmit}
@@ -83,55 +85,38 @@ const Register: React.FC = () => {
                 noValidate
               >
                 <Typography color="textPrimary" variant="h4">
-                  Update User info
+                  Update Password
                 </Typography>
-                {errors.firstName && touched.firstName ? (
-                  <div style={{ color: "red" }}>{errors.firstName}</div>
-                ) : null}
+                
                 <Field
                   as={TextField}
                   fullWidth
-                  label="First Name"
+                  label="Old Password"
                   margin="normal"
-                  name="firstName"
+                  name="oldpassword"
                   variant="outlined"
-              
+                  type="password"
                 />
-                {errors.lastName && touched.lastName ? (
-                  <div style={{ color: "red" }}>{errors.lastName}</div>
-                ) : null}
+                
                 <Field
                   as={TextField}
                   fullWidth
-                  label="Last Name"
+                  label="New Password"
                   margin="normal"
-                  name="lastName"
+                  name="newpassword"
                   variant="outlined"
+                  type="password"
                 />
-                {errors.email && touched.lastName ? (
-                  <div style={{ color: "red" }}>{errors.email}</div>
-                ) : null}
+               
                 <Field
                   as={TextField}
                   fullWidth
-                  label="Email Address"
+                  label="Confirm Password"
                   margin="normal"
-                  name="email"
-                  type="email"
+                  name="confirmpassword"
+                  type="password"
                   variant="outlined"
                 />
-                <FormControl sx={{ width: "100%" }}>
-                  <InputLabel>Role</InputLabel>
-                  <Select
-                    value={role}
-                    defaultValue={role}
-                    label={role}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={"User"}>User</MenuItem>
-                    <MenuItem value={"Administrator"}>Administrator</MenuItem>
-                  </Select>
-                </FormControl>
                 <Box
                   sx={{
                     alignItems: "center",
@@ -141,22 +126,22 @@ const Register: React.FC = () => {
                 ></Box>
                 <Box sx={{ py: 2 }}>
                   <Button
-                    disabled={!(isValid && dirty)}
+                    
                     color="primary"
                     fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
                   >
-                    {isSubmitting ? "Loading" : "Update"}
+                    {  "Update"}
                   </Button>
                 </Box>
               </Box>
-            )}
+        
           </Formik>
         </Container>
       </Box>
     </>
   );
 };
-export default Register;
+export default UpdatePassword;
